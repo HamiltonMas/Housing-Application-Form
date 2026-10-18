@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Housing Application Portal</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- WELCOME PAGE -->
+      <div id="welcomePage" class="page active">
+        <div class="welcome-box">
+          <div class="logo-circle">H</div>
+
+          <h1>Housing Application Portal</h1>
+
+          <p>
+            Complete your housing application online by providing your personal
+            information, household details, employment information and
+            supporting documents.
+          </p>
+
+          <button
+            type="button"
+            class="primary-button"
+            onclick="startApplication()"
+          >
+            Start Application
+          </button>
+        </div>
+      </div>
+
+      <!-- APPLICATION PAGE -->
+      <div id="applicationPage" class="page">
+        <div class="application-card">
+          <!-- HEADER -->
+          <div class="header">
+            <div>
+              <h1>Housing Application</h1>
+
+              <p>Please complete all required information.</p>
+            </div>
+          </div>
+
+          <!-- PROGRESS -->
+          <div class="progress-container">
+            <div class="progress-bar">
+              <div id="progressFill"></div>
+            </div>
+
+            <div class="steps">
+              <div class="step active">
+                <span class="step-number">1</span>
+                <span>Personal</span>
+              </div>
+
+              <div class="step">
+                <span class="step-number">2</span>
+                <span>Household</span>
+              </div>
+
+              <div class="step">
+                <span class="step-number">3</span>
+                <span>Employment</span>
+              </div>
+
+              <div class="step">
+                <span class="step-number">4</span>
+                <span>Housing</span>
+              </div>
+
+              <div class="step">
+                <span class="step-number">5</span>
+                <span>Documents</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- FORM -->
+          <form id="applicationForm">
+            <!-- STEP 1 -->
+            <div class="form-step active" data-step="1">
+              <div class="step-heading">
+                <span class="heading-icon">1</span>
+
+                <div>
+                  <h2>Personal Information</h2>
+
+                  <p>Enter your personal contact details.</p>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="firstName"> First Name </label>
+
+                  <input
+                    type="text"
+                    id="firstName"
+                    placeholder="Enter your first name"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="surname"> Surname </label>
+
+                  <input
+                    type="text"
+                    id="surname"
+                    placeholder="Enter your surname"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="email"> Email Address </label>
+
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="example@email.com"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="phone"> Phone Number </label>
+
+                  <input
+                    type="tel"
+                    id="phone"
+                    placeholder="Enter your phone number"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="buttons next-button-container">
+                <button
+                  type="button"
+                  class="primary-button"
+                  onclick="nextStep()"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="form-step" data-step="2">
+              <div class="step-heading">
+                <span class="heading-icon">2</span>
+
+                <div>
+                  <h2>Household Information</h2>
+
+                  <p>Tell us about your household.</p>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="householdSize"> Household Size </label>
+
+                  <input
+                    type="number"
+                    id="householdSize"
+                    min="1"
+                    placeholder="Number of household members"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="housingSituation">
+                    Current Housing Situation
+                  </label>
+
+                  <select id="housingSituation" required>
+                    <option value="">Select an option</option>
+
+                    <option value="Renting">Renting</option>
+
+                    <option value="Living with family">
+                      Living with family
+                    </option>
+
+                    <option value="Informal settlement">
+                      Informal settlement
+                    </option>
+
+                    <option value="Homeless">Homeless</option>
+
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="buttons">
+                <button
+                  type="button"
+                  class="secondary-button"
+                  onclick="previousStep()"
+                >
+                  Previous
+                </button>
+
+                <button
+                  type="button"
+                  class="primary-button"
+                  onclick="nextStep()"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="form-step" data-step="3">
+              <div class="step-heading">
+                <span class="heading-icon">3</span>
+
+                <div>
+                  <h2>Employment & Income</h2>
+
+                  <p>
+                    Your employment status determines which documents you need
+                    to provide.
+                  </p>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="employmentStatus"> Employment Status </label>
+
+                  <select
+                    id="employmentStatus"
+                    required
+                    onchange="updateDocumentRequirements()"
+                  >
+                    <option value="">Select an option</option>
+
+                    <option value="Employed">Employed</option>
+
+                    <option value="Self-Employed">Self-Employed</option>
+
+                    <option value="Unemployed">Unemployed</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="monthlyIncome"> Monthly Income </label>
+
+                  <input
+                    type="number"
+                    id="monthlyIncome"
+                    min="0"
+                    step="0.01"
+                    placeholder="Enter monthly income"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div id="employmentInformation" class="information-box">
+                <div class="information-icon">i</div>
+
+                <p>
+                  Select your employment status to see the documents required
+                  for your application.
+                </p>
+              </div>
+
+              <div class="buttons">
+                <button
+                  type="button"
+                  class="secondary-button"
+                  onclick="previousStep()"
+                >
+                  Previous
+                </button>
+
+                <button
+                  type="button"
+                  class="primary-button"
+                  onclick="nextStep()"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="form-step" data-step="4">
+              <div class="step-heading">
+                <span class="heading-icon">4</span>
+
+                <div>
+                  <h2>Housing Preference</h2>
+
+                  <p>Select your preferred housing unit type.</p>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group full-width">
+                  <label> Preferred Unit Type </label>
+
+                  <div class="option-grid">
+                    <label class="option-card">
+                      <input
+                        type="radio"
+                        name="unitType"
+                        value="Bachelor"
+                        required
+                      />
+
+                      <div class="option-content">
+                        <span class="option-title"> Bachelor </span>
+
+                        <span class="option-description">
+                          A compact unit suitable for an individual or small
+                          household.
+                        </span>
+                      </div>
+                    </label>
+
+                    <label class="option-card">
+                      <input type="radio" name="unitType" value="2 Bedroom" />
+
+                      <div class="option-content">
+                        <span class="option-title"> 2 Bedroom </span>
+
+                        <span class="option-description">
+                          A two-bedroom unit suitable for a small family or
+                          household.
+                        </span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="buttons">
+                <button
+                  type="button"
+                  class="secondary-button"
+                  onclick="previousStep()"
+                >
+                  Previous
+                </button>
+
+                <button
+                  type="button"
+                  class="primary-button"
+                  onclick="nextStep()"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="form-step" data-step="5">
+              <div class="step-heading">
+                <span class="heading-icon"> 5 </span>
+
+                <div>
+                  <h2>Supporting Documents</h2>
+
+                  <p>
+                    Upload the documents required for your employment status.
+                  </p>
+                </div>
+              </div>
+
+              <div class="upload-notice">
+                <strong> Document requirements </strong>
+
+                <p>
+                  Accepted formats: PDF, JPG, JPEG and PNG. Maximum file size is
+                  5 MB per document.
+                </p>
+              </div>
+
+              <!-- EMPLOYED -->
+              <div id="employedDocuments" class="document-section">
+                <div class="document-section-header">
+                  <h3>Employed Applicant Documents</h3>
+
+                  <span class="status-badge"> Employed </span>
+                </div>
+
+                <div class="document-item">
+                  <label for="proofOfIncome">
+                    Proof of Income
+                    <span class="required">*</span>
+                  </label>
+
+                  <input
+                    type="file"
+                    id="proofOfIncome"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  />
+
+                  <small> Required </small>
+
+                  <div id="proofOfIncomeName" class="file-name"></div>
+                </div>
+
+                <div class="document-item">
+                  <label for="employmentLetter">
+                    Employment Letter
+                    <span class="required">*</span>
+                  </label>
+
+                  <input
+                    type="file"
+                    id="employmentLetter"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  />
+
+                  <small> Required </small>
+
+                  <div id="employmentLetterName" class="file-name"></div>
+                </div>
+
+                <div class="document-item">
+                  <label for="employedProofOfResidence">
+                    Proof of Residence
+                    <span class="required">*</span>
+                  </label>
+
+                  <input
+                    type="file"
+                    id="employedProofOfResidence"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  />
+
+                  <small> Required </small>
+
+                  <div
+                    id="employedProofOfResidenceName"
+                    class="file-name"
+                  ></div>
+                </div>
+
+                <div class="document-item">
+                  <label for="bankStatement"> Bank Statement </label>
+
+                  <input
+                    type="file"
+                    id="bankStatement"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  />
+
+                  <small> Optional </small>
+
+                  <div id="bankStatementName" class="file-name"></div>
+                </div>
+
+                <div class="document-item">
+                  <label for="employedOtherDocument">
+                    Other Supporting Document
+                  </label>
+
+                  <input
+                    type="file"
+                    id="employedOtherDocument"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  />
+
+                  <small> Optional </small>
+
+                  <div id="employedOtherDocumentName" class="file-name"></div>
+                </div>
+              </div>
+
+              <!-- SELF EMPLOYED -->
+              <div id="selfEmployedDocuments" class="document-section">
+                <div class="document-section-header">
+                  <h3>Self-Employed Applicant Documents</h3>
+
+                  <span class="status-badge"> Self-Employed </span>
+                </div>
+
+                <div class="document-item">
+                  <label for="sixMonthBankStatements">
+                    6 Months Bank Statements
+                    <span class="required">*</span>
+                  </label>
+
+                  <input
+                    type="file"
+                    id="sixMonthBankStatements"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  />
+
+                  <small> Required </small>
+
+                  <div id="sixMonthBankStatementsName" class="file-name"></div>
+                </div>
+
+                <div class="document-item">
+                  <label for="incomeAffidavit">
+                    Affidavit Confirming Business Income
+                    <span class="required">*</span>
+                  </label>
+
+                  <input
+                    type="file"
+                    id="incomeAffidavit"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  />
+
+                  <small> Required </small>
+
+                  <div id="incomeAffidavitName" class="file-name"></div>
+                </div>
+
+                <div class="document-item">
+                  <label for="cipcRegistration">
+                    CIPC / CK Registration Documents
+                    <span class="required">*</span>
+                  </label>
+
+                  <input
+                    type="file"
+                    id="cipcRegistration"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  />
+
+                  <small> Required where applicable </small>
+
+                  <div id="cipcRegistrationName" class="file-name"></div>
+                </div>
+
+                <div class="document-item">
+                  <label for="selfEmployedProofOfResidence">
+                    Proof of Residence
+                    <span class="required">*</span>
+                  </label>
+
+                  <input
+                    type="file"
+                    id="selfEmployedProofOfResidence"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  />
+
+                  <small> Required </small>
+
+                  <div
+                    id="selfEmployedProofOfResidenceName"
+                    class="file-name"
+                  ></div>
+                </div>
+
+                <div class="document-item">
+                  <label for="businessIncomeProof">
+                    Proof of Business Income
+                  </label>
+
+                  <input
+                    type="file"
+                    id="businessIncomeProof"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  />
+
+                  <small>
+                    Optional - invoices, contracts, receipts, etc.
+                  </small>
+
+                  <div id="businessIncomeProofName" class="file-name"></div>
+                </div>
+
+                <div class="document-item">
+                  <label for="selfEmployedOtherDocument">
+                    Other Supporting Document
+                  </label>
+
+                  <input
+                    type="file"
+                    id="selfEmployedOtherDocument"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  />
+
+                  <small> Optional </small>
+
+                  <div
+                    id="selfEmployedOtherDocumentName"
+                    class="file-name"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- UNEMPLOYED / OTHER -->
+              <div id="otherStatusDocuments" class="document-section">
+                <div class="document-section-header">
+                  <h3>Supporting Documents</h3>
+
+                  <span class="status-badge"> Other </span>
+                </div>
+
+                <div class="document-item">
+                  <label for="unemployedProofOfResidence">
+                    Proof of Residence
+                    <span class="required">*</span>
+                  </label>
+
+                  <input
+                    type="file"
+                    id="unemployedProofOfResidence"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  />
+
+                  <small> Required </small>
+
+                  <div
+                    id="unemployedProofOfResidenceName"
+                    class="file-name"
+                  ></div>
+                </div>
+
+                <div class="document-item">
+                  <label for="unemployedOtherDocument">
+                    Other Supporting Document
+                  </label>
+
+                  <input
+                    type="file"
+                    id="unemployedOtherDocument"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  />
+
+                  <small> Optional </small>
+
+                  <div id="unemployedOtherDocumentName" class="file-name"></div>
+                </div>
+              </div>
+
+              <!-- BUTTONS -->
+              <div class="buttons">
+                <button
+                  type="button"
+                  class="secondary-button"
+                  onclick="previousStep()"
+                >
+                  Previous
+                </button>
+
+                <button type="submit" class="submit-button">
+                  Submit Application
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- SUCCESS PAGE -->
+      <div id="successPage" class="page">
+        <div class="success-box">
+          <div class="success-icon">✓</div>
+
+          <h1>Application Submitted</h1>
+
+          <p>Your application has been successfully submitted.</p>
+
+          <p class="reference-label">Your reference number is:</p>
+
+          <div id="referenceNumber" class="reference-number"></div>
+
+          <p class="success-message">
+            Please keep your reference number for future use.
+          </p>
+
+          <button
+            type="button"
+            class="primary-button"
+            onclick="startNewApplication()"
+          >
+            Start New Application
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
